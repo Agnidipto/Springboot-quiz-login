@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.loginapp.entity.User;
+import com.cg.loginapp.model.LoginDTO;
 import com.cg.loginapp.model.UserDTO;
 import com.cg.loginapp.service.AdminServices;
 import com.cg.loginapp.service.UserServices;
@@ -38,11 +39,11 @@ public class AdminContoller {
 	/*
 	 *  Admin login page
 	 */
-	@PostMapping(value="/admin/{emailId}/{password}/")
-	public ResponseEntity<String> loginPage(@PathVariable String emailId , @PathVariable String password) throws SignUpExceptions,NullPointerException
+	@PostMapping(value="/admin")
+	public ResponseEntity<String> loginPage(@RequestBody LoginDTO logindto) throws SignUpExceptions,NullPointerException
 	{
 		logger.info("Login in user controller is accessed");
-        String s = service.adminlogin(emailId,password);
+        String s = service.adminlogin(logindto.getEmailId(),logindto.getPassword());
          return new ResponseEntity<>(s,HttpStatus.ACCEPTED);
 	}
 	
